@@ -90,7 +90,7 @@ def test_negative_format_postcode1(formatting_negative_value_length):
     """
     postcode = Postcode()
     print(postcode.format_postcode(formatting_negative_value_length))
-    assert postcode.valid == False and postcode.message == "ERROR: Valid UK postcode must be between 5 to 8 character"
+    assert postcode.valid == False and postcode.message == "ERROR: 5 to 8 characters only"
 
 
 def test_negative_format_postcode2(formatting_negative_value_special_char):
@@ -101,8 +101,7 @@ def test_negative_format_postcode2(formatting_negative_value_special_char):
     """
     postcode = Postcode()
     print(postcode.format_postcode(formatting_negative_value_special_char))
-    assert postcode.valid == False and postcode.message == "ERROR: No special Characters allowed; " \
-                                                           "please enter only aplhanumeric characters"
+    assert postcode.valid == False and postcode.message == "ERROR: No special Characters allowed"
 
 
 @pytest.fixture(params=validate_negative_values)
@@ -118,7 +117,7 @@ def test_positive_validate_postcode1(formatting_positive_value):
     """
     postcode = Postcode()
     postcode.validate_postcode(formatting_positive_value)
-    assert postcode.valid == True and postcode.message == "Valid: the post code is valid"
+    assert postcode.valid == True and postcode.message == "VALID: the post code is valid"
 
 
 def test_negative_validate_postcode1(validate_negative_values):
@@ -129,7 +128,7 @@ def test_negative_validate_postcode1(validate_negative_values):
     """
     postcode = Postcode()
     postcode.validate_postcode(validate_negative_values)
-    assert postcode.valid == False and postcode.message == "Invalid: the post code is invalid"
+    assert postcode.valid == False and postcode.message == "INVALID: the post code is invalid"
 
 
 def test_positive_split_postcode1():
