@@ -72,6 +72,13 @@ from ukpostcode.postcode import Postcode
     print("postcode sector:", postcode.postcode_sector)
     print("postcode unit:", postcode.postcode_unit)
 ```
+
+3. Running Test cases
+```shell
+$ pytest ukpostcode/tests.py
+```
+![output](https://github.com/Anubhavj02/uk-postcode-validator/blob/master/output/output4.png)
+
 ## Testing the library using a Django App
 ### Setup
 ```shell
