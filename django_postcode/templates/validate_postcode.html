@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        .valid{
+            background-color: lightgreen;
+            color: black;
+        }
+
+        .invalid{
+            background-color: lightcoral;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>UK Postcode Validator and Formatter</h2>
+    <form name="form" action="{% url 'check' %}" method="POST">{% csrf_token %}
+        <div class="form-group">
+            <label for="comment">Enter Postcode(s):</label>
+            <textarea class="form-control" rows="5" id="postcodes" name="postcodes">{{ postcodes }}</textarea>
+            <small id="passwordHelpBlock" class="form-text text-muted">
+                For multiple postcodes validation, use semicolon ";" to separate them
+            </small>
+        </div>
+        <button type="submit" class="btn btn-primary">Format and Validate</button>
+    </form>
+
+
+    <br>
+    <br>
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Input</th>
+            <th scope="col">Message</th>
+            <th scope="col">Valid</th>
+            <th scope="col">Formatted</th>
+            <th scope="col">Outward</th>
+            <th scope="col">Inward</th>
+            <th scope="col">Area</th>
+            <th scope="col">District</th>
+            <th scope="col">Sector</th>
+            <th scope="col">Unit</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for postcode in postcode_checked_list %}
+
+            <tr class="item-image{% if postcode.valid %} valid {% else %} invalid {% endif %}">
+                <td>{{ postcode.input_postcode }}</td>
+                <td>{{ postcode.message }}</td>
+                <td>{{ postcode.valid }}</td>
+                <td>{{ postcode.formatted_postcode }}</td>
+                <td>{{ postcode.outward_code }}</td>
+                <td>{{ postcode.inward_code }}</td>
+                <td>{{ postcode.postcode_area }}</td>
+                <td>{{ postcode.postcode_district }}</td>
+                <td>{{ postcode.postcode_sector }}</td>
+                <td>{{ postcode.postcode_unit }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

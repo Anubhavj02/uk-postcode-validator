@@ -1,0 +1,16 @@
+{
+  "tests.py::test_negative_format_postcode1": true,
+  "tests.py::test_negative_format_postcode1[1 1AA]": true,
+  "tests.py::test_negative_format_postcode1[99AA 1AAAAA 1AA]": true,
+  "tests.py::test_negative_format_postcode1[A 1AA]": true,
+  "tests.py::test_negative_format_postcode1[AA1 1]": true,
+  "tests.py::test_negative_format_postcode1[AA11 1AAA0]": true,
+  "tests.py::test_negative_format_postcode1[AA11 1AAA1]": true,
+  "tests.py::test_negative_format_postcode1[AA11A 1AA]": true,
+  "tests.py::test_negative_format_postcode1[AB1 1AA]": true,
+  "tests.py::test_negative_format_postcode1[AC1A 1BB]": true,
+  "tests.py::test_negative_format_postcode1[BBB 1AA1111 1AA]": true,
+  "tests.py::test_negative_format_postcode1[DN55 1PT]": true,
+  "tests.py::test_negative_format_postcode1[ec1#bb]": true,
+  "tests.py::test_negative_format_postcode1[ec1a ]": true
+}
