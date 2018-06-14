@@ -2,6 +2,8 @@
 
 A simple python library and django based application to demonstarte library usage for validating and formating UK post codes
 
+![output](https://github.com/Anubhavj02/uk-postcode-validator/blob/master/output/output1.png)
+
 ## Requirements
 * Pip 3
 * virtualenv
@@ -36,8 +38,8 @@ $ export PYTHONPATH='.'
 ```shell
 $ python ukpostcode "EC1A 1BB"
 ```
-Output:
-
+### Output:
+![output](https://github.com/Anubhavj02/uk-postcode-validator/blob/master/output/output2.png)
 
 2. As a library
 ```python
@@ -80,4 +82,4 @@ This will run the djaingo app on: http://127.0.0.1:8080/
 
 ### Output
 Enter multiple postcode separated by semicolon in the box to validate, format and split
-
+![output](https://github.com/Anubhavj02/uk-postcode-validator/blob/master/output/output3.png)
