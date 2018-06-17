@@ -33,6 +33,30 @@ class Postcode(object):
     # compile the regex
     VALID_POSTCODE_REGEX = re.compile(POSTCODE_REGEX)
 
+    # Special case and conditions
+
+    # Areas with only single-digit districts: BR, FY, HA, HD, HG, HR, HS, HX, JE, LD, SM, SR, WC, WN, ZE
+    SINGLE_DIGIT_POSTAREA = ['BR', 'FY', 'HA', 'HD', 'HG', 'HR', 'HS', 'HX', 'JE', 'LD', 'SM', 'SR', 'WC', 'WN', 'ZE']
+
+    # Areas with only double-digit districts: AB, LL, SO
+    DOUBLE_DIGIT_POSTAREA = ['AB', 'LL', 'SO']
+
+    # Areas with a district '0' (zero): BL, BS, CM, CR, FY, HA, PR, SL, SS
+    ZERO_DIGIT_POSTAREA = ['BL', 'BS', 'CM', 'CR', 'FY', 'HA', 'PR', 'SL', 'SS']
+
+    # central London single-digit districts have been further divided by inserting a letter after the digit and before
+    #  the space: EC1–EC4 (but not EC50), SW1, W1, WC1, WC2
+    LETTER_FOLLOW = ['EC1', 'EC2', 'EC3' 'EC4', 'SW1', 'W1', 'WC1', 'WC2']
+
+    # Special valid outward codes:
+    # 1. although WC is always subdivided by a further letter, e.g. WC1A
+    # 2. BS is the only area to have both a district 0 and a district 10
+    # 3. part of E1 (E1W), N1 (N1C and N1P), NW1 (NW1W) and SE1 (SE1P)
+    SPECIAL_COND_OUTWARD = ['WC1A', 'BS10', 'E1W', 'N1C', 'N1P', 'NW1W', 'SE1P']
+
+    # Special invalid outward codes
+    INVALID_OUTWARD = ['E1', 'N1', 'NW1', 'SE1', 'EC50']
+
     def __init__(self, input_postcode = "", formatted_postcode = "", outward_code="", inward_code="", postcode_area="", postcode_district="", postcode_sector="",
                  postcode_unit="", valid = False, message = ""):
         """Constructor to initialize the Postcode object with the default or supplied values"""
@@ -122,15 +146,39 @@ class Postcode(object):
                 # Get the district from the outward code as all the characters from the first digit in outward code
                 self.postcode_district = self.outward_code[district_start:]
 
-            # Split the inward code to get sector and unit
-            # Example inward code: 0NY; sector: 0 and unit: NY
+                # Checking special conditions
+                if not (self.outward_code in self.SPECIAL_COND_OUTWARD):
+                    if self.outward_code.startswith(tuple(self.LETTER_FOLLOW)):
+                        if not self.postcode_district[-1:].isalpha():
+                            self.message = "INVALID: the post code is invalid"
+                            self.valid = False
 
-            # Get the sector from inward code as the first letter
-            self.postcode_sector = self.inward_code[:1]
-            # Get unit from inward code as last 2 letters
-            self.postcode_unit = self.inward_code[1:]
+                    elif self.postcode_area in self.DOUBLE_DIGIT_POSTAREA:
+                        if len(self.postcode_district) != 2 or not (self.postcode_district.isdigit()):
+                            self.message = "INVALID: the post code is invalid"
+                            self.valid = False
 
+                    elif self.postcode_area in self.ZERO_DIGIT_POSTAREA:
+                        if self.postcode_district != '0':
+                            self.message = "INVALID: the post code is invalid"
+                            self.valid = False
+                    elif self.postcode_area in self.SINGLE_DIGIT_POSTAREA:
+                        if len(self.postcode_district) != 1 or not (self.postcode_district.isdigit()):
+                            self.message = "INVALID: the post code is invalid"
+                            self.valid = False
 
+                    if self.outward_code.startswith(tuple(self.INVALID_OUTWARD)):
+                        self.message = "INVALID: the post code is invalid"
+                        self.valid = False
 
+            if self.valid:
+                # Split the inward code to get sector and unit
+                # Example inward code: 0NY; sector: 0 and unit: NY
 
-
+                # Get the sector from inward code as the first letter
+                self.postcode_sector = self.inward_code[:1]
+                # Get unit from inward code as last 2 letters
+                self.postcode_unit = self.inward_code[1:]
+            else:
+                self.postcode_area = ""
+                self.postcode_district = ""
