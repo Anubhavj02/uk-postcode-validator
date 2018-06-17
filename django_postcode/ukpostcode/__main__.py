@@ -1,6 +1,8 @@
-import sys
+#! /usr/bin/env python3.6
 
+import sys
 from ukpostcode.postcode import Postcode
+
 
 if __name__ == '__main__':
 
@@ -15,13 +17,6 @@ if __name__ == '__main__':
     postcode.format_postcode(postcode_str)
     print("Message:", postcode.message)
     print("Formatted post code:", postcode.formatted_postcode)
-
-    # Validating the post code
-    print("\n\n######### Validating Postcode #########")
-    postcode = Postcode()
-    postcode.validate_postcode(postcode_str)
-    print("Status:", postcode.valid)
-    print("Message:", postcode.message)
 
     # Splitting the post code
     print("\n\n######### Formatting, Validating and Splitting Postcode #########")
