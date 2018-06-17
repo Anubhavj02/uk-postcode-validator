@@ -12,7 +12,8 @@ formatting_positive_value = [
     "m11ae",
     "b338th",
     "cr26xh",
-    "dn551pt"
+    "dn551pt",
+    "BL01AA"
 ]
 
 # List of invalid postcodes with wrong length
@@ -40,7 +41,11 @@ validate_negative_values = [
     'BBB 1AA',  # Invalid: all letters in outward code
     '1111 1AA',  # Invalid: all digits in Outward code
     '99AA 1AA',  # Invalid: all Digits post code area
-    'AA1 AA',  # Invalid: all letters in inward code
+    'AA1 AA',  # Invalid: all letters in inward code,
+    'AB1 1AA',  # Special Case
+    'BR11 1AA',  # Special case
+    'BL1 1AA'
+
 ]
 
 
@@ -127,7 +132,7 @@ def test_negative_validate_postcode1(validate_negative_values):
             validate_negative_values -- invalid uk post codes
     """
     postcode = Postcode()
-    postcode.validate_postcode(validate_negative_values)
+    postcode.split_validate_postcode(validate_negative_values)
     assert postcode.valid == False and postcode.message == "INVALID: the post code is invalid"
 
 
