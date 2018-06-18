@@ -51,14 +51,7 @@ from ukpostcode.postcode import Postcode
     print("Message:", postcode.message)
     print("Formatted post code:", postcode.formatted_postcode)
 
-    # Validating the post code
-    print("\n\n######### Validating Postcode #########")
-    postcode = Postcode()
-    postcode.validate_postcode(postcode_str)
-    print("Status:", postcode.valid)
-    print("Message:", postcode.message)
-
-    # Splitting the post code
+    # Splitting and validating the post code
     print("\n\n######### Formatting, Validating and Splitting Postcode #########")
     postcode = Postcode()
     postcode.split_validate_postcode(postcode_str)
